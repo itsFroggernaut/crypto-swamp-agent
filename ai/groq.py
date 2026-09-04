@@ -2,14 +2,20 @@ import os
 from groq import Groq
 
 
-def ask_groq(prompt):
+def ask_groq(prompt, mode="research"):
 
     client = Groq(
         api_key=os.environ["GROQ_API_KEY"]
     )
 
+    if mode == "fast":
+        model = "openai/gpt-oss-20b"
+    else:
+        model = "openai/gpt-oss-120b"
+
+
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model=model,
         messages=[
             {
                 "role": "user",
